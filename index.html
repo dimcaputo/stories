@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue !</title>
+</head>
+<body style="text-align:center">
+    <h1>Please upload an image to get a story!</h1>
+    <form action="/" method="POST" enctype="multipart/form-data"> 
+        <label for="img">Select image:</label> 
+        <input type="file" id="img" name="img" accept="image/*"> 
+        <input type="submit" value="submit"> 
+    </form>
+
+    {% if img %}
+    <h3>Rendered Image</h3>
+    <img src="{{img}}" style="height:50vh">
+    <h3>Here's a story about your image:</h3>
+    <h3>{{story}}</h3>
+    {% else %}
+    <h3>Image will be rendered below</h3>
+    {% endif %}
+</body>
+</html>
