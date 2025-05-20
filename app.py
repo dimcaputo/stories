@@ -19,21 +19,21 @@ def upload_image():
         img = os.path.join(app.config['UPLOAD'], filename)
         file.save(img)
         
-        # with open(img, 'rb') as f:
-        #     response = ollama.chat(
-        #         model='tinyllama',
-        #         messages=[
-        #             {
-        #             'role': 'user',
-        #             'content': 'Tell me a short story about this image. Make it 10 sentences.',
-        #             'images': [f.read()],
-        #             },
-        #         ],
-        #     )
-        #     story = response['message']['content']
-        # with open(os.path.join(story_path, filename), 'w') as s:
-        #     s.write(story)
-        return render_template('index.html', img=img)
+        with open(img, 'rb') as f:
+            response = ollama.chat(
+                model='gemma3:4b',
+                messages=[
+                    {
+                    'role': 'user',
+                    'content': "Tell me a short story about this image in 10 sentences.",
+                    'images': [f.read()],
+                    },
+                ],
+            )
+            story = response['message']['content']
+        with open(os.path.join(story_path, filename.rstrip('jpg')+'txt'), 'w') as s:
+            s.write(story)
+        return render_template('index.html', img=img, story=story)
     return render_template('index.html')
 
 
