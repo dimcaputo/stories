@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" http-equiv="refresh" content="5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your story</title>
+</head>
+<body style="text-align:center">
+    {% if story %}
+    <h1>Here's your image</h1>
+    <img src="{{img}}" style="height: 50vh;">
+    <h3>{{story}}</h3>
+    {% else %}
+    <h1>Here's your image</h1>
+    <img src="{{img}}" style="height: 50vh;">
+    <h3>The story is being written...</h3>
+    {% endif %}
+</body>
+</html>

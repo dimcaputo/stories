@@ -12,14 +12,5 @@
         <input type="file" id="img" name="img" accept="image/*"> 
         <input type="submit" value="submit"> 
     </form>
-
-    {% if img %}
-    <h3>Rendered Image</h3>
-    <img src="{{img}}" style="height: 50vh;">
-    <h3>Here's a story about your image:</h3>
-    <h3>{{story}}</h3>
-    {% else %}
-    <h3>Image will be rendered below</h3>
-    {% endif %}
 </body>
 </html>
