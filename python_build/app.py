@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 import os
-import ollama
+from ollama import Client
 from PIL import Image
 
 app = Flask(__name__)
@@ -20,17 +20,23 @@ def upload_image():
         file.save(img)
         
         with open(img, 'rb') as f:
-            response = ollama.chat(
-                model='gemma3:4b',
+            client = Client(
+                host='http://ollama:11434',
+            )
+            response = client.chat(
+                model='gemma3:4b', 
                 messages=[
                     {
-                    'role': 'user',
-                    'content': "Tell me a short story about this image in 10 sentences.",
-                    'images': [f.read()],
+                        'role': 'user',
+                        'content': 'Write a tiny story about this image. Always start your response with "Once upon a time".',
+                        'images':[f.read()]
                     },
                 ],
+                options={'num_thread':os.cpu_count()}
             )
-            story = response['message']['content']
+
+        story = response['message']['content']
+
         with open(os.path.join(story_path, filename.rstrip('jpg')+'txt'), 'w') as s:
             s.write(story)
         return render_template('index.html', img=img, story=story)
