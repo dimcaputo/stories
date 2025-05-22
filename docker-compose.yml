@@ -4,9 +4,9 @@ services:
         build: ./python_build 
         ports:
           - "5000:5000"
-        container_name: python
         volumes:
-          - ~/Documents/docker_ollama/compose/python:/root/
+          - data_python:/static
+        container_name: python
         restart: always
         image: python
 
@@ -15,12 +15,14 @@ services:
         build: ./ollama_build
         ports:
           - "6000:11434"
-        container_name: ollama
         volumes:
-          - ~/Documents/docker_ollama/compose/ollama:/root/.ollama
+          - data_ollama:/root/.ollama
+        container_name: ollama
         restart: always
         image: ollama
 
-
+volumes:
+  data_python:
+  data_ollama:
 
         
